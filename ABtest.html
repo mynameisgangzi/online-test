@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>心理测试</title>
+<style>
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.card {
+  background: #fff;
+  box-shadow: 2px 2px 4px #ccc;
+  padding: 20px;
+  border-radius: 10px;  
+}
+
+.question {
+  font-size: 24px;
+  font-weight: bold; 
+}
+
+/* 选项卡 */
+.option {
+  position: relative;
+  padding: 20px 20px 20px 50px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 7px rgba(0,0,0,.2); 
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: purple;
+}
+
+.option:hover {
+  box-shadow: 0 6px 10px rgba(0,0,0,.3);
+  transform: scale(1.01); 
+}
+
+.option.active {
+  border: 1px solid #333;
+  background: #fff;
+}
+
+/* 结果卡片 */
+#result {
+  text-align: center;
+}
+
+/* 动画效果 */  
+.fade-in {
+  animation: fadeIn .5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+ 
+</style>
+</head>
+<body>
+    <div class="container">
+        <div id="start">
+        <button onclick="startTest()">开始测试</button> 
+        </div>
+
+        <div id="questions" style="display:none">
+
+        </div>
+
+        <div id="result" style="display:none">
+
+        </div>
+</div>
+<script>
+
+var questions = [
+{
+    id: 1, 
+    text: '你说话时会刻意加重关键字的语气吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 0]
+  },
+  {
+    id: 2,  
+    text: '你吃饭和走路时都很急促吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 3,  
+    text: '你认为孩子自幼就该养成与人竞争的习惯吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 4,  
+    text: '当别人慢条斯理做事时你会感到不耐烦吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 5,  
+    text: '当别人向你解说事情时你会催他赶快说完吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 6,  
+    text: '在路上挤车或餐馆排队时你会被激怒吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 7,  
+    text: '聆听别人谈话时你会一直想你自己的问题吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 8,  
+    text: '你会一边吃饭一边写笔记或一边开车一边刮胡子吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 9,  
+    text: '你会在休假之前赶完预定的一切工作吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 10,  
+    text: '与别人闲谈时你总是提到自己关心的事吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 11,  
+    text: '让你停下工作休息一会儿时你会觉得浪费了时间吗?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 12,  
+    text: '你是否觉得全心投入工作而无暇欣赏周围的美景?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 13,  
+    text: '你是否觉得宁可务实而不愿从事创新或改革的事?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 14,  
+    text: '你是否尝试在有限的时间内做出更多的事?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 15,  
+    text: '与别人有约时你是否绝对守时?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 16,  
+    text: '表达意见时你是否握紧拳头以加强语气?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 17,  
+    text: '你是否有信心再提升你的工作绩效?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 18,  
+    text: '你是否觉得有些事等着你立刻去完成?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 19,  
+    text: '你是否觉得对自己的工作效率一直不满意?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  },
+  {
+    id: 20,  
+    text: '你是否觉得与人竞争时非赢不可?',
+    options: ['是', '否'],
+    answer: 0,
+    answerScore: [1, 2]
+  }
+  // 更多问题...
+];
+
+var score = 0;
+var currentQuestionIndex = 0;
+
+function startTest() {
+
+  document.getElementById('start').style.display = 'none';
+  document.getElementById('questions').style.display = 'block';
+
+  showQuestion();
+
+}
+
+function showQuestion() {
+    // 问题展示时加入淡入动画
+    document.getElementById('questions').classList.add('fade-in'); 
+  var question = questions[currentQuestionIndex];
+
+  var html = '<div class="question">' + question.id +'.'+ question.text + '</div>';
+
+  for(var i = 0; i < question.options.length; i++) {
+    var option = question.options[i];
+    html += '<div class="option" onclick="selectOption('+i+')">' + option + '</div>';
+  }
+
+  document.getElementById('questions').innerHTML = html;
+
+}
+
+function selectOption(index) {
+
+  var question = questions[currentQuestionIndex];
+
+  if(index == question.answer) {
+    score++;
+  }
+
+  currentQuestionIndex++;
+
+  if(currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    showResult();
+  }
+
+}
+
+function showResult() {
+
+  document.getElementById('questions').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+  // 结果展示时加入淡入动画  
+  document.getElementById('result').classList.add('fade-in');
+  var resultText;
+
+  if(score <= 3) {
+    resultText = '结果1';
+  } else if(score <= 6) {
+    resultText = '结果2';
+  } else {
+    resultText = '结果3';
+  }
+
+  document.getElementById('result').innerHTML = '您的得分是:' + score + '<br>' + resultText;
+
+}
+
+</script>
+
+</body>
+</html>
