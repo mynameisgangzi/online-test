@@ -1,83 +1,139 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>心理测试</title>
-<style>
+    <meta charset="utf-8">
+    <title>心理测试</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
+        .card {
+            background: #fff;
+            box-shadow: 2px 2px 4px #ccc;
+            padding: 20px;
+            border-radius: 10px;
+        }
 
-.card {
-  background: #fff;
-  box-shadow: 2px 2px 4px #ccc;
-  padding: 20px;
-  border-radius: 10px;  
-}
+        .question {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-.question {
-  font-size: 24px;
-  font-weight: bold; 
-}
+        /* 选项卡 */
+        .option {
+            position: relative;
+            padding: 20px 20px 20px 50px;
+            background: #fff;
+            box-shadow: 0 4px 7px rgba(0, 0, 0, .2);
+        }
 
-/* 选项卡 */
-.option {
-  position: relative;
-  padding: 20px 20px 20px 50px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 7px rgba(0,0,0,.2); 
-}
+        .option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: purple;
+        }
 
-.option::before {
-  content: '';
-  position: absolute;
-  left: 20px;
-  top: 0;
-  height: 100%;
-  width: 5px;
-  background: purple;
-}
+        .option:hover {
+            box-shadow: 0 6px 10px rgba(0, 0, 0, .3);
+            transform: scale(1.01);
+        }
 
-.option:hover {
-  box-shadow: 0 6px 10px rgba(0,0,0,.3);
-  transform: scale(1.01); 
-}
+        .option.active {
+            border: 1px solid #333;
+            background: #fff;
+        }
 
-.option.active {
-  border: 1px solid #333;
-  background: #fff;
-}
+        /* 结果卡片 */
+        #result {
+            text-align: center;
+        }
 
-/* 结果卡片 */
-#result {
-  text-align: center;
-}
+        /* 动画效果 */
+        .fade-in {
+            animation: fadeIn .5s;
+        }
 
-/* 动画效果 */  
-.fade-in {
-  animation: fadeIn .5s;
-}
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
- 
-</style>
+            to {
+                opacity: 1;
+            }
+        }
+
+        #questions,
+        .container {
+            display: flex;
+            align-items: center;
+            justify-items: center;
+            flex-direction: column;
+        }
+
+        .desc {
+            width: 1000px;
+            margin: bottom 500px;
+            /* margin: 50px 0; */
+        }
+
+        .btn {
+            width: 500px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 25px;
+            background-color: #9b6cff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .back-btn {
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 20px;
+            background-color: #9b6cff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #questions .question {
+            margin-bottom: 20px;
+        }
+
+        #questions .option {
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
+        <h1 class="title">A型、B型性格测试</h1>
+        <div class="desc">心理学家用大量的研究证明：性格特点与疾病之间有着紧密的联系。<br/>
+            <p>
+            A型性格的特点是：性格急躁，没有耐心；争强好胜，求胜心切，追求成就，有很强的事业心；动作敏捷；时间观念强；情绪容易波动；对人有戒心；缺少运动。</p> 
+            <p>
+            B型性格的特点是：
+            性情随和，不喜欢与人争斗；生活方式悠闲自在，不争名利，对成败得失看得较淡，不太在意成就的大小，对工作生活较容易满足；工作生活从容不迫，有条不紊；时间观念不是特别强。</p>
+            医学研究发现A型性格是患心脏病的主要原因之一，A型性格者心脏病的发病率是B型性格的2倍。尽管对健康有些不利影响，但A型性格的人大可不必“杞人忧天”，只要对自己的生活做出一些调整，如在时间计划中多给自己留有余地，以便处理突发事件；休息前尽量完成所有的工作，以便轻松自在地游玩；尽量避免排队或做日常索事等。这样，尽量使自己的行为变成适应性强、压力较小的方式，就可以有效地保护自己的健康。
+        </div>
         <div id="start">
-        <button onclick="startTest()">开始测试</button> 
+            <button class="btn" onclick="startTest()">开始测试</button>
         </div>
 
         <div id="questions" style="display:none">
@@ -87,220 +143,221 @@
         <div id="result" style="display:none">
 
         </div>
-</div>
-<script>
+        
+    </div>
+    <script>
+        var questions = [{
+                id: 1,
+                text: '你说话时会刻意加重关键字的语气吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 2,
+                text: '你吃饭和走路时都很急促吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 3,
+                text: '你认为孩子自幼就该养成与人竞争的习惯吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 4,
+                text: '当别人慢条斯理做事时你会感到不耐烦吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 5,
+                text: '当别人向你解说事情时你会催他赶快说完吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 6,
+                text: '在路上挤车或餐馆排队时你会被激怒吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 7,
+                text: '聆听别人谈话时你会一直想你自己的问题吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 8,
+                text: '你会一边吃饭一边写笔记或一边开车一边刮胡子吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 9,
+                text: '你会在休假之前赶完预定的一切工作吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 10,
+                text: '与别人闲谈时你总是提到自己关心的事吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 11,
+                text: '让你停下工作休息一会儿时你会觉得浪费了时间吗?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 12,
+                text: '你是否觉得全心投入工作而无暇欣赏周围的美景?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 13,
+                text: '你是否觉得宁可务实而不愿从事创新或改革的事?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 14,
+                text: '你是否尝试在有限的时间内做出更多的事?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 15,
+                text: '与别人有约时你是否绝对守时?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 16,
+                text: '表达意见时你是否握紧拳头以加强语气?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 17,
+                text: '你是否有信心再提升你的工作绩效?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 18,
+                text: '你是否觉得有些事等着你立刻去完成?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 19,
+                text: '你是否觉得对自己的工作效率一直不满意?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            },
+            {
+                id: 20,
+                text: '你是否觉得与人竞争时非赢不可?',
+                options: ['是', '否'],
+                answer: 0,
+                answerScore: [1, 0]
+            }
+            // 更多问题...
+        ];
 
-var questions = [
-{
-    id: 1, 
-    text: '你说话时会刻意加重关键字的语气吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 0]
-  },
-  {
-    id: 2,  
-    text: '你吃饭和走路时都很急促吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 3,  
-    text: '你认为孩子自幼就该养成与人竞争的习惯吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 4,  
-    text: '当别人慢条斯理做事时你会感到不耐烦吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 5,  
-    text: '当别人向你解说事情时你会催他赶快说完吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 6,  
-    text: '在路上挤车或餐馆排队时你会被激怒吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 7,  
-    text: '聆听别人谈话时你会一直想你自己的问题吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 8,  
-    text: '你会一边吃饭一边写笔记或一边开车一边刮胡子吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 9,  
-    text: '你会在休假之前赶完预定的一切工作吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 10,  
-    text: '与别人闲谈时你总是提到自己关心的事吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 11,  
-    text: '让你停下工作休息一会儿时你会觉得浪费了时间吗?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 12,  
-    text: '你是否觉得全心投入工作而无暇欣赏周围的美景?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 13,  
-    text: '你是否觉得宁可务实而不愿从事创新或改革的事?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 14,  
-    text: '你是否尝试在有限的时间内做出更多的事?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 15,  
-    text: '与别人有约时你是否绝对守时?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 16,  
-    text: '表达意见时你是否握紧拳头以加强语气?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 17,  
-    text: '你是否有信心再提升你的工作绩效?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 18,  
-    text: '你是否觉得有些事等着你立刻去完成?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 19,  
-    text: '你是否觉得对自己的工作效率一直不满意?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  },
-  {
-    id: 20,  
-    text: '你是否觉得与人竞争时非赢不可?',
-    options: ['是', '否'],
-    answer: 0,
-    answerScore: [1, 2]
-  }
-  // 更多问题...
-];
+        var score = [];
+        var currentQuestionIndex = 0;
 
-var score = 0;
-var currentQuestionIndex = 0;
+        function startTest() {
 
-function startTest() {
+            document.getElementById('start').style.display = 'none';
+            document.getElementById('questions').style.display = 'block';
 
-  document.getElementById('start').style.display = 'none';
-  document.getElementById('questions').style.display = 'block';
+            showQuestion();
 
-  showQuestion();
+        }
 
-}
+        function showQuestion() {
+            // 问题展示时加入淡入动画
+            document.getElementById('questions').classList.add('fade-in');
+            var question = questions[currentQuestionIndex];
 
-function showQuestion() {
-    // 问题展示时加入淡入动画
-    document.getElementById('questions').classList.add('fade-in'); 
-  var question = questions[currentQuestionIndex];
+            var html = '<div class="question">' + question.id + '.' + question.text + '</div>';
 
-  var html = '<div class="question">' + question.id +'.'+ question.text + '</div>';
+            for (var i = 0; i < question.options.length; i++) {
+                var option = question.options[i];
+                html += '<div class="option" onclick="selectOption(' + i + ')">' + option + '</div>';
+            }
+            if (currentQuestionIndex > 0) {
+                html += '<div class="back-btn" onclick="goBack()">上一题</div>'
+            }
+            document.getElementById('questions').innerHTML = html;
 
-  for(var i = 0; i < question.options.length; i++) {
-    var option = question.options[i];
-    html += '<div class="option" onclick="selectOption('+i+')">' + option + '</div>';
-  }
+        }
 
-  document.getElementById('questions').innerHTML = html;
+        function selectOption(index) {
+            var question = questions[currentQuestionIndex];
+            score.push(question.answerScore[index]);
+           
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
 
-}
+        }
 
-function selectOption(index) {
+        function goBack() {
+            currentQuestionIndex--;
+            score.pop();
+            showQuestion();
+        }
 
-  var question = questions[currentQuestionIndex];
+        function showResult() {
 
-  if(index == question.answer) {
-    score++;
-  }
+            document.getElementById('questions').style.display = 'none';
+            document.getElementById('result').style.display = 'block';
+            // 结果展示时加入淡入动画  
+            document.getElementById('result').classList.add('fade-in');
+            var resultText;
+            let result = score.filter((item, index) => {
+                return item += item
+            }).length;
+            if (result <= 12) {
+                resultText = 'B型性格';
+            } else{
+                resultText = 'A型性格';
+            } 
+            document.getElementById('result').innerHTML = '您的得分是:' + result + '<br>' + resultText;
 
-  currentQuestionIndex++;
-
-  if(currentQuestionIndex < questions.length) {
-    showQuestion();
-  } else {
-    showResult();
-  }
-
-}
-
-function showResult() {
-
-  document.getElementById('questions').style.display = 'none';
-  document.getElementById('result').style.display = 'block';
-  // 结果展示时加入淡入动画  
-  document.getElementById('result').classList.add('fade-in');
-  var resultText;
-
-  if(score <= 3) {
-    resultText = '结果1';
-  } else if(score <= 6) {
-    resultText = '结果2';
-  } else {
-    resultText = '结果3';
-  }
-
-  document.getElementById('result').innerHTML = '您的得分是:' + score + '<br>' + resultText;
-
-}
-
-</script>
+        }
+    </script>
 
 </body>
+
 </html>
