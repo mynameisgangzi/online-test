@@ -1,0 +1,192 @@
+<html>
+    <head>
+        <title>16型人格测试</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <meta
+          content="width=device-width,initial-scale=1,user-scalable=no"
+          name="viewport"
+        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="format-detection" content="telephone=no,address=no" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="white" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta
+          name="keywords"
+          content="MBTI，测试性格，免费的性格测试，职业推荐，工作规划，职业发展，恋爱，三观，人格，内向，外向，INFP，INTJ，INTP，ISTJ，INFJ，ENTP，ENFP，ISFJ，ISFP，ENTJ，ISTP，ESFP，ESTJ，ESTP，ESFJ，ENFJ"
+        />
+        <meta
+          name="description"
+          content="超过200万用户选择的职业性格及人才测评平台，提供免费、权威、准确的MBTI十六型人格性格测试及海量相关内容，帮助您找到最合适的职业和人生伴侣。"
+        />
+        <style>
+            .container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+            li{ 
+                list-style: none;
+                float: left;
+            }
+    
+            .card {
+                background: #fff;
+                box-shadow: 2px 2px 4px #ccc;
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px;
+            }
+    
+            .question {
+                font-size: 24px;
+                font-weight: bold;
+            }
+    
+            /* 选项卡 */
+            .option {
+                position: relative;
+                padding: 20px 20px 20px 50px;
+                background: #fff;
+                box-shadow: 0 4px 7px rgba(0, 0, 0, .2);
+            }
+    
+            .option::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 5px;
+                background: purple;
+            }
+    
+            .option:hover {
+                box-shadow: 0 6px 10px rgba(0, 0, 0, .3);
+                transform: scale(1.01);
+            }
+    
+            .option.active {
+                border: 1px solid #333;
+                background: #fff;
+            }
+    
+            /* 结果卡片 */
+            #result {
+                text-align: center;
+            }
+    
+            /* 动画效果 */
+            .fade-in {
+                animation: fadeIn .5s;
+            }
+    
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+    
+                to {
+                    opacity: 1;
+                }
+            }
+    
+            #questions,
+            .container {
+                display: flex;
+                align-items: center;
+                justify-items: center;
+                flex-direction: column;
+            }
+    
+            .desc {
+                width: 500px;
+                margin: 100px 0;
+            }
+    
+            .btn {
+                width: 500px;
+                height: 50px;
+                text-align: center;
+                line-height: 50px;
+                border-radius: 25px;
+                background-color: #9b6cff;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+            }
+    
+            .back-btn {
+                width: 150px;
+                height: 40px;
+                text-align: center;
+                line-height: 40px;
+                border-radius: 20px;
+                background-color: #9b6cff;
+                border: none;
+                color: #fff;
+                cursor: pointer;
+            }
+    
+            #questions .question {
+                margin-bottom: 20px;
+            }
+    
+            #questions .option {
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1 class="title">MBTI测试(16personalities)</h1>
+            <h3 class="title">目前使用人数第一的MBTI测试</h1>
+            <div id="chooseitem" ><br/>
+                <ul>
+                    <li>
+                        <div class="option card" onclick='location.href=("mbti156.html")'>
+                            <p>93题</p>
+                            <p>标准版</p>
+                            <p>近30天测试 4972109人</p>
+                            <p>*数据来源于简则MBTI官网</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option card" onclick='location.href=("mbti156.html")'>
+                            <p>145题</p>
+                            <p>专业版</p>
+                            <p>近30天测试 7213083人</p>
+                            <p>*数据来源于简则MBTI官网</p>
+                        </div>
+                        
+                    </li>
+                    <li>
+                        <div class="option card" onclick='location.href=("mbti156.html")'>
+                            <p>200题</p>
+                            <p>完整版</p>
+                            <p>近30天测试 1291489人</p>
+                            <p>*数据来源于简则MBTI官网</p>
+                        </div>
+                        
+                    </li>
+                </ul>
+                
+            </div>
+            <div id="start">
+                <button class="btn" onclick='location.href=("mbti156.html")'>开始测试</button>
+                
+            </div>
+
+            <div id="questions" style="display:none">
+    
+            </div>
+    
+            <div id="result" style="display:none">
+    
+            </div>
+            
+        </div>
+    </body>
+</html>
